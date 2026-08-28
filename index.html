@@ -43,3 +43,218 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Website</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+}
+
+/* Navigation */
+nav {
+    position: sticky;
+    top: 0;
+    background: #020617;
+    padding: 18px;
+    text-align: center;
+    z-index: 1000;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #38bdf8;
+}
+
+/* Home */
+.home {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+}
+
+.home h1 {
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+.home p {
+    font-size: 20px;
+    max-width: 600px;
+    margin-bottom: 30px;
+}
+
+.button {
+    display: inline-block;
+    padding: 14px 25px;
+    background: white;
+    color: #2563eb;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+/* Sections */
+section {
+    padding: 70px 25px;
+    text-align: center;
+}
+
+section h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+section p {
+    max-width: 650px;
+    margin: auto;
+    line-height: 1.7;
+}
+
+/* Projects */
+.projects {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 15px;
+    width: 280px;
+}
+
+.card h3 {
+    margin-bottom: 12px;
+}
+
+/* Contact */
+.contact {
+    background: #020617;
+}
+
+.contact a {
+    color: #38bdf8;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #020617;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .home h1 {
+        font-size: 35px;
+    }
+
+    nav a {
+        margin: 0 5px;
+        font-size: 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<section class="home" id="home">
+    <h1>Welcome to My Website 🚀</h1>
+    <p>
+        Hello! I'm building my first professional website
+        using only my Android phone.
+    </p>
+
+    <a class="button" href="#about">Explore My Website</a>
+</section>
+
+<section id="about">
+    <h2>About Me 👋</h2>
+    <p>
+        Welcome to my website! This is my personal space
+        where I can share my projects, interests and ideas.
+    </p>
+</section>
+
+<section id="projects">
+    <h2>My Projects 💻</h2>
+
+    <div class="projects">
+
+        <div class="card">
+            <h3>Project 1</h3>
+            <p>My first website project.</p>
+        </div>
+
+        <div class="card">
+            <h3>Project 2</h3>
+            <p>More exciting projects coming soon.</p>
+        </div>
+
+        <div class="card">
+            <h3>Project 3</h3>
+            <p>My future coding project.</p>
+        </div>
+
+    </div>
+</section>
+
+<section class="contact" id="contact">
+    <h2>Contact Me 📩</h2>
+
+    <p>
+        You can add your social media or email here later.
+    </p>
+
+    <br>
+
+    <a href="mailto:your-email@example.com">
+        Send Me an Email
+    </a>
+</section>
+
+<footer>
+    <p>© 2026 My Website. All Rights Reserved.</p>
+</footer>
+
+</body>
+            </html>
