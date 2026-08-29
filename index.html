@@ -8,32 +8,31 @@
 
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
         }
 
         body {
             font-family: Arial, sans-serif;
-            background: #0f172a;
+            background: linear-gradient(135deg, #141e30, #243b55);
             color: white;
+            line-height: 1.6;
         }
 
-        /* Navigation */
         nav {
             position: sticky;
             top: 0;
-            z-index: 1000;
-            background: #020617;
-            padding: 18px 10px;
+            background: #111827;
+            padding: 15px;
             text-align: center;
+            z-index: 1000;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 8px;
+            margin: 0 12px;
             font-weight: bold;
         }
 
@@ -41,185 +40,90 @@
             color: #38bdf8;
         }
 
-        /* Home */
-        #home {
+        .hero {
             min-height: 90vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 30px 20px;
-            background: linear-gradient(135deg, #111827, #312e81, #0f172a);
+            padding: 30px;
         }
 
-        #home h1 {
-            font-size: 50px;
+        .hero h1 {
+            font-size: 45px;
             margin-bottom: 15px;
         }
 
-        #home h1 span {
-            color: #38bdf8;
-        }
-
-        #home h2 {
-            color: #a5b4fc;
-            margin-bottom: 20px;
-        }
-
-        #home p {
-            max-width: 600px;
-            line-height: 1.7;
-            font-size: 18px;
+        .hero p {
+            font-size: 20px;
+            max-width: 650px;
+            margin-bottom: 25px;
         }
 
         .button {
             display: inline-block;
-            margin-top: 30px;
-            padding: 14px 28px;
+            padding: 14px 25px;
             background: #38bdf8;
-            color: #020617;
+            color: #111827;
             text-decoration: none;
             border-radius: 30px;
             font-weight: bold;
         }
 
-        .button:hover {
-            background: white;
-        }
-
-        /* Sections */
         section {
-            padding: 70px 20px;
+            padding: 70px 25px;
             text-align: center;
         }
 
         section h2 {
-            font-size: 35px;
-            margin-bottom: 25px;
-            color: #38bdf8;
+            font-size: 32px;
+            margin-bottom: 20px;
         }
 
         section p {
-            max-width: 700px;
+            max-width: 650px;
             margin: auto;
-            line-height: 1.8;
         }
 
-        /* Skills */
-        .skill {
-            display: inline-block;
+        .cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .card {
             background: #1e293b;
-            padding: 20px 35px;
-            margin: 10px;
+            padding: 25px;
             border-radius: 15px;
-            border: 1px solid #334155;
+            width: 280px;
         }
 
-        .skill h3 {
-            font-size: 22px;
-        }
-
-        /* Gaming */
-        #gaming {
-            background: #111827;
+        .card h3 {
+            margin-bottom: 12px;
+            color: #38bdf8;
         }
 
         .games {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 30px;
+            background: #0f172a;
         }
 
-        .game-card {
-            width: 280px;
-            background: #1e293b;
-            padding: 25px;
-            border-radius: 18px;
-            transition: 0.3s;
-        }
-
-        .game-card:hover {
-            transform: translateY(-8px);
-        }
-
-        .game-icon {
-            font-size: 55px;
-            margin-bottom: 15px;
-        }
-
-        .game-card h3 {
-            margin-bottom: 12px;
-        }
-
-        .game-card p {
-            font-size: 15px;
-        }
-
-        /* Projects */
-        .projects {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .project {
-            width: 280px;
-            background: #1e293b;
-            padding: 25px;
-            border-radius: 18px;
-        }
-
-        .project h3 {
-            margin-bottom: 12px;
-        }
-
-        /* Contact */
-        #contact {
-            background: #020617;
-        }
-
-        .contact-button {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 13px 25px;
-            background: #38bdf8;
-            color: #020617;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-        }
-
-        /* Footer */
         footer {
-            background: #020617;
+            background: #111827;
             text-align: center;
-            padding: 25px;
-            color: #94a3b8;
+            padding: 20px;
         }
 
-        /* Mobile */
         @media (max-width: 600px) {
-
-            #home h1 {
-                font-size: 38px;
-            }
-
-            #home h2 {
-                font-size: 20px;
+            .hero h1 {
+                font-size: 35px;
             }
 
             nav a {
-                font-size: 13px;
-                margin: 0 4px;
-            }
-
-            section h2 {
-                font-size: 30px;
+                margin: 5px;
+                font-size: 14px;
             }
         }
     </style>
@@ -227,198 +131,101 @@
 
 <body>
 
-    <!-- Navigation -->
     <nav>
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
-        <a href="#gaming">Gaming</a>
-        <a href="#projects">Projects</a>
+        <a href="#games">Games</a>
         <a href="#contact">Contact</a>
     </nav>
 
-
-    <!-- Home -->
-    <section id="home">
-
-        <h1>Hi, I'm <span>Indra Sena</span> 👋</h1>
-
-        <h2>🐍 Python Learner | 🎮 Gamer | 🚀 Creator</h2>
+    <section class="hero" id="home">
+        <h1>Hi, I'm Indra Sena 👋</h1>
 
         <p>
-            Welcome to my personal portfolio!
-            I love learning Python, exploring technology,
-            and sharing my gaming interests.
+            Welcome to my personal portfolio! 
+            I love coding with Python and sharing interesting things about games.
         </p>
 
-        <a class="button" href="#gaming">
-            Explore My Gaming World 🎮
-        </a>
-
+        <a class="button" href="#about">Explore My Portfolio 🚀</a>
     </section>
 
-
-    <!-- About -->
     <section id="about">
-
-        <h2>About Me 👤</h2>
+        <h2>About Me 👨‍💻</h2>
 
         <p>
-            Hello! I'm Indra Sena.
-            I'm currently learning Python and exploring
-            the world of programming and technology.
-            I also enjoy games and want to share gaming
-            content, reviews, and interesting game posts.
+            Hello! I'm Indra Sena. This is my personal website where
+            I can share my coding projects, gaming interests and ideas.
         </p>
-
     </section>
 
-
-    <!-- Skills -->
     <section id="skills">
+        <h2>My Skills 🐍</h2>
 
-        <h2>My Skills 🛠️</h2>
+        <div class="cards">
 
-        <div class="skill">
-            <h3>🐍 Python</h3>
-            <p>Learning programming and building projects.</p>
+            <div class="card">
+                <h3>Python 🐍</h3>
+                <p>
+                    I am learning Python programming and building
+                    interesting projects.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Web Development 🌐</h3>
+                <p>
+                    I am learning HTML, CSS and how to create websites.
+                </p>
+            </div>
+
         </div>
-
     </section>
 
-
-    <!-- Gaming -->
-    <section id="gaming">
-
-        <h2>Gaming 🎮</h2>
+    <section class="games" id="games">
+        <h2>Gaming Zone 🎮</h2>
 
         <p>
-            Welcome to my gaming section!
-            Here I'll share my favorite games,
-            reviews, gaming posts, screenshots,
-            tips and interesting gaming content.
+            I will post game reviews, gaming news, interesting games,
+            tips and my favourite gaming content here.
         </p>
 
-        <div class="games">
+        <div class="cards">
 
-            <div class="game-card">
-
-                <div class="game-icon">🎮</div>
-
-                <h3>My Favorite Games</h3>
-
-                <p>
-                    I'll add my favorite games here.
-                </p>
-
+            <div class="card">
+                <h3>Game Reviews 🎮</h3>
+                <p>My thoughts and ratings about different games.</p>
             </div>
 
-
-            <div class="game-card">
-
-                <div class="game-icon">🔥</div>
-
-                <h3>Game Reviews</h3>
-
-                <p>
-                    I'll post my opinions and reviews
-                    about games I play.
-                </p>
-
+            <div class="card">
+                <h3>Game News 📰</h3>
+                <p>Interesting gaming updates and announcements.</p>
             </div>
 
-
-            <div class="game-card">
-
-                <div class="game-icon">🏆</div>
-
-                <h3>Gaming Tips</h3>
-
-                <p>
-                    Tips, tricks and interesting
-                    gaming information.
-                </p>
-
+            <div class="card">
+                <h3>Game Tips 🏆</h3>
+                <p>Tips, tricks and useful information for gamers.</p>
             </div>
 
         </div>
-
     </section>
 
-
-    <!-- Projects -->
-    <section id="projects">
-
-        <h2>My Projects 💻</h2>
-
-        <div class="projects">
-
-            <div class="project">
-
-                <h3>🐍 Python Project</h3>
-
-                <p>
-                    My Python projects will be
-                    displayed here.
-                </p>
-
-            </div>
-
-
-            <div class="project">
-
-                <h3>🌐 My Website</h3>
-
-                <p>
-                    This portfolio website is
-                    one of my first projects.
-                </p>
-
-            </div>
-
-
-            <div class="project">
-
-                <h3>🚀 Coming Soon</h3>
-
-                <p>
-                    More projects coming soon!
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- Contact -->
     <section id="contact">
-
         <h2>Contact Me 📩</h2>
 
         <p>
-            Want to contact me?
-            You can add your email or social-media
-            links here.
+            Want to contact me? Send me an email.
         </p>
 
-        <!-- Change this email to your real email -->
-        <a class="contact-button"
-           href="mailto:your-email@example.com">
-            Send Me an Email
-        </a>
+        <br>
 
+        <a class="button" href="mailto:your-email@example.com">
+            Email Me
+        </a>
     </section>
 
-
-    <!-- Footer -->
     <footer>
-
-        <p>
-            © 2026 Indra Sena | Personal Portfolio
-        </p>
-
+        <p>© 2026 Indra Sena | My Portfolio</p>
     </footer>
 
 </body>
