@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Puzzle Game | Indra Sena</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #07152f, #102a55, #07152f);
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    margin-top: 15px;
+    font-size: 34px;
+    color: #38bdf8;
+}
+
+.subtitle {
+    margin: 10px 0 20px;
+    color: #b8c7df;
+    font-size: 16px;
+}
+
+.info {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.box {
+    background: #17294a;
+    border: 1px solid #29466f;
+    border-radius: 12px;
+    padding: 10px 18px;
+    min-width: 100px;
+}
+
+.box span {
+    display: block;
+    color: #38bdf8;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+#puzzle {
+    width: min(90vw, 360px);
+    height: min(90vw, 360px);
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 8px;
+    background: #0b1933;
+    border-radius: 18px;
+    border: 2px solid #2e78b7;
+    box-shadow: 0 0 25px rgba(56,189,248,0.25);
+}
+
+.tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(145deg, #2498e8, #1262a3);
+    border-radius: 12px;
+    font-size: clamp(28px, 9vw, 48px);
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.15s ease, filter 0.15s ease;
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.12);
+}
+
+.tile:active {
+    transform: scale(0.92);
+    filter: brightness(1.3);
+}
+
+.empty {
+    background: transparent;
+    border: 2px dashed #29466f;
+    box-shadow: none;
+    cursor: default;
+}
+
+button {
+    border: none;
+    padding: 14px 25px;
+    border-radius: 30px;
+    background: #38bdf8;
+    color: #06203b;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 8px;
+    box-shadow: 0 5px 15px rgba(56,189,248,0.25);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+#message {
+    min-height: 30px;
+    margin: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #7dd3fc;
+}
+
+.instructions {
+    max-width: 420px;
+    margin: 25px auto;
+    padding: 18px;
+    background: rgba(23,41,74,0.8);
+    border: 1px solid #29466f;
+    border-radius: 15px;
+    color: #c7d5e9;
+    line-height: 1.6;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 15px;
+    color: #38bdf8;
+    text-decoration: none;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🧩 Puzzle Game</h1>
+
+<p class="subtitle">
+    Arrange the numbers from 1 to 8!
+</p>
+
+<div class="info">
+
+    <div class="box">
+        Moves
+        <span id="moves">0</span>
+    </div>
+
+    <div class="box">
+        Time
+        <span id="time">0</span>
+    </div>
+
+    <div class="box">
+        Best
+        <span id="best">--</span>
+    </div>
+
+</div>
+
+<div id="puzzle"></div>
+
+<div id="message"></div>
+
+<button onclick="newGame()">🔄 New Game</button>
+
+<div class="instructions">
+    <strong>How to play</strong><br><br>
+    Tap a number next to the empty space
+    to move it.<br>
+    Arrange the numbers in this order:
+    <br><br>
+    <b>1  2  3</b><br>
+    <b>4  5  6</b><br>
+    <b>7  8  ⬜</b>
+</div>
+
+<a class="back" href="index.html">
+    ← Back to Portfolio
+</a>
+
+<script>
+
+let board = [];
+let moves = 0;
+let seconds = 0;
+let timer = null;
+let gameStarted = false;
+
+const puzzle = document.getElementById("puzzle");
+const movesText = document.getElementById("moves");
+const timeText = document.getElementById("time");
+const bestText = document.getElementById("best");
+const message = document.getElementById("message");
+
+function newGame() {
+
+    board = [1,2,3,4,5,6,7,8,0];
+
+    // Shuffle until the puzzle is solvable
+    do {
+        shuffle(board);
+    } while (!isSolvable(board) || isSolved());
+
+    moves = 0;
+    seconds = 0;
+    gameStarted = false;
+
+    movesText.textContent = moves;
+    timeText.textContent = seconds;
+    message.textContent = "";
+
+    clearInterval(timer);
+
+    drawBoard();
+    loadBest();
+}
+
+function shuffle(array) {
+
+    for (let i = array.length - 1; i > 0; i--) {
+
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [array[i], array[j]] =
+        [array[j], array[i]];
+    }
+}
+
+function isSolvable(arr) {
+
+    let inversions = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+
+        if (arr[i] === 0) continue;
+
+        for (let j = i + 1; j < arr.length; j++) {
+
+            if (arr[j] !== 0 && arr[i] > arr[j]) {
+                inversions++;
+            }
+        }
+    }
+
+    return inversions % 2 === 0;
+}
+
+function drawBoard() {
+
+    puzzle.innerHTML = "";
+
+    board.forEach((value, index) => {
+
+        const tile = document.createElement("div");
+
+        tile.className = "tile";
+
+        if (value === 0) {
+
+            tile.classList.add("empty");
+
+        } else {
+
+            tile.textContent = value;
+
+            tile.onclick = () => moveTile(index);
+        }
+
+        puzzle.appendChild(tile);
+    });
+}
+
+function moveTile(index) {
+
+    const emptyIndex = board.indexOf(0);
+
+    const row = Math.floor(index / 3);
+    const col = index % 3;
+
+    const emptyRow = Math.floor(emptyIndex / 3);
+    const emptyCol = emptyIndex % 3;
+
+    const distance =
+        Math.abs(row - emptyRow) +
+        Math.abs(col - emptyCol);
+
+    // Only tiles next to empty space can move
+    if (distance !== 1) {
+        return;
+    }
+
+    if (!gameStarted) {
+        startTimer();
+        gameStarted = true;
+    }
+
+    [board[index], board[emptyIndex]] =
+    [board[emptyIndex], board[index]];
+
+    moves++;
+
+    movesText.textContent = moves;
+
+    drawBoard();
+
+    if (isSolved()) {
+        winGame();
+    }
+}
+
+function isSolved() {
+
+    for (let i = 0; i < 8; i++) {
+
+        if (board[i] !== i + 1) {
+            return false;
+        }
+    }
+
+    return board[8] === 0;
+}
+
+function startTimer() {
+
+    timer = setInterval(() => {
+
+        seconds++;
+
+        timeText.textContent = seconds;
+
+    }, 1000);
+}
+
+function winGame() {
+
+    clearInterval(timer);
+
+    message.textContent =
+        "🎉 Congratulations! Puzzle Solved!";
+
+    saveBest();
+}
+
+function saveBest() {
+
+    const oldBest =
+        localStorage.getItem("puzzleBest");
+
+    if (!oldBest || moves < Number(oldBest)) {
+
+        localStorage.setItem(
+            "puzzleBest",
+            moves
+        );
+    }
+
+    loadBest();
+}
+
+function loadBest() {
+
+    const best =
+        localStorage.getItem("puzzleBest");
+
+    bestText.textContent =
+        best ? best : "--";
+}
+
+newGame();
+
+</script>
+
+</body>
+  </html>
